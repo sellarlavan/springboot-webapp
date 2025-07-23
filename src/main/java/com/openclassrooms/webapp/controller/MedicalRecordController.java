@@ -70,10 +70,10 @@ public class MedicalRecordController {
 
             if (deleted) {
                 logger.info("Dossier médical supprimé avec succès.");
-                return ResponseEntity.noContent().build(); // 204
+                return ResponseEntity.noContent().build();
             } else {
                 logger.error("Dossier médical non trouvé pour suppression.");
-                return ResponseEntity.notFound().build(); // 404
+                return ResponseEntity.notFound().build();
             }
 
         } catch (Exception e) {

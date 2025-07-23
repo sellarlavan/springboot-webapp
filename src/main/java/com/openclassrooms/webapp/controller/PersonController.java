@@ -20,7 +20,6 @@ public class PersonController {
     private final PersonService personService;
     private static final Logger logger = LogManager.getLogger(PersonController.class);
 
-
     public PersonController(PersonService personService) {
         this.personService = personService;
     }

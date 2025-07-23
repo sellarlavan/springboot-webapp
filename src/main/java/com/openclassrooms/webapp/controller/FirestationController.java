@@ -60,7 +60,6 @@ public class FirestationController {
     public ResponseEntity<Void> deleteFirestation(@RequestBody Firestation request) throws IOException {
         logger.debug("Requête reçue pour la suppression d'une caserne.");
 
-        // Validation simple : soit adresse, soit station doit être renseignée
         if ((request.getAddress() == null || request.getAddress().isEmpty()) && request.getStation() == 0) {
             logger.error("Requête invalide ni adresse ni numéro de station fourni.");
             return ResponseEntity.badRequest().build();
@@ -69,10 +68,10 @@ public class FirestationController {
         boolean deleted;
 
         if (request.getAddress() != null && !request.getAddress().isEmpty()) {
-            logger.debug("Suppression d'une caserne par adresse : {}", request.getAddress());
+            logger.debug("Suppression d'une caserne par adresse.");
             deleted = firestationService.deleteByAddress(request.getAddress());
         } else {
-            logger.debug("Suppression d'une caserne par numéro de station : {}", request.getStation());
+            logger.debug("Suppression d'une caserne par numéro de station.");
             deleted = firestationService.deleteByStationNumber(request.getStation());
         }
 
@@ -100,7 +99,7 @@ public class FirestationController {
 
             if (response.getPersons() == null || response.getPersons().isEmpty()) {
                 logger.warn("La caserne ne couvre aucun résident.");
-                return ResponseEntity.ok(response); // On peut aussi faire `noContent()` si tu préfères.
+                return ResponseEntity.ok(response);
             }
 
             logger.info("Récupération réussie des personnes couvertes par la caserne");
