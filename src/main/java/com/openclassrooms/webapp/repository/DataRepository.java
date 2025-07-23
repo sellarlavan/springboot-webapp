@@ -12,6 +12,7 @@ public class DataRepository {
     private final ObjectMapper objectMapper = new ObjectMapper();
     private final File file = Paths.get("data.json").toFile();
 
+
     public DataContainer loadData() throws IOException {
         return objectMapper.readValue(file, DataContainer.class);
     }

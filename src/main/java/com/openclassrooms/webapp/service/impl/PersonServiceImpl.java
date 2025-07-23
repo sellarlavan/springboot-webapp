@@ -1,4 +1,4 @@
-package com.openclassrooms.webapp.service;
+package com.openclassrooms.webapp.service.impl;
 
 import com.openclassrooms.webapp.dto.PersonInfoByLastNameDTO;
 import com.openclassrooms.webapp.model.MedicalRecord;
@@ -6,14 +6,12 @@ import com.openclassrooms.webapp.model.Person;
 
 import com.openclassrooms.webapp.repository.MedicalRecordRepository;
 import com.openclassrooms.webapp.repository.PersonRepository;
+import com.openclassrooms.webapp.service.interfaces.PersonService;
 import com.openclassrooms.webapp.utils.DateUtils;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 import java.io.IOException;
-import java.util.Optional;
 
 @Service
 public class PersonServiceImpl implements PersonService {
@@ -47,7 +45,7 @@ public class PersonServiceImpl implements PersonService {
                 return updatedPerson;
             }
         }
-        return null;
+        throw new NoSuchElementException("Personne non trouvée.");
     }
 
     @Override
@@ -74,7 +72,6 @@ public class PersonServiceImpl implements PersonService {
                         .filter(mr -> mr.getFirstName().equalsIgnoreCase(person.getFirstName())
                                 && mr.getLastName().equalsIgnoreCase(person.getLastName()))
                         .findFirst();
-
 
                 int age = medicalOpt.map(mr -> DateUtils.calculateAge(mr.getBirthdate())).orElse(0);
                 List<String> medications = medicalOpt.map(MedicalRecord::getMedications).orElse(Collections.emptyList());

@@ -1,4 +1,4 @@
-package com.openclassrooms.webapp.service;
+package com.openclassrooms.webapp.service.interfaces;
 
 import com.openclassrooms.webapp.dto.FirestationCoverage;
 import com.openclassrooms.webapp.model.Firestation;

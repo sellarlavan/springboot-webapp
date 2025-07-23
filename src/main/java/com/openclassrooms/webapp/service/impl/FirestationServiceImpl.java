@@ -1,4 +1,4 @@
-package com.openclassrooms.webapp.service;
+package com.openclassrooms.webapp.service.impl;
 
 import com.openclassrooms.webapp.dto.FirestationCoverage;
 import com.openclassrooms.webapp.dto.PersonCoveredByStationDTO;
@@ -8,12 +8,14 @@ import com.openclassrooms.webapp.model.Person;
 import com.openclassrooms.webapp.repository.FirestationRepository;
 import com.openclassrooms.webapp.repository.MedicalRecordRepository;
 import com.openclassrooms.webapp.repository.PersonRepository;
+import com.openclassrooms.webapp.service.interfaces.FirestationService;
 import com.openclassrooms.webapp.utils.DateUtils;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 @Service
@@ -52,7 +54,7 @@ public class FirestationServiceImpl implements FirestationService {
                 return updatedFirestation;
             }
         }
-        return null;
+        throw new NoSuchElementException("Adresse inexistante.");
     }
 
 
@@ -79,10 +81,15 @@ public class FirestationServiceImpl implements FirestationService {
 
     public FirestationCoverage getPersonsCoveredByStation(int stationNumber) throws IOException {
         List<Firestation> firestations = firestationRepository.findAll();
+
         List<String> addresses = firestations.stream()
                 .filter(f -> f.getStation() == stationNumber)
                 .map(Firestation::getAddress)
                 .collect(Collectors.toList());
+
+        if (addresses.isEmpty()) {
+            return null;
+        }
 
         List<Person> persons = personRepository.findAll();
         List<MedicalRecord> medicalRecords = medicalRecordRepository.findAll();

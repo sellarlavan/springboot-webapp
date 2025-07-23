@@ -1,4 +1,4 @@
-package com.openclassrooms.webapp.service;
+package com.openclassrooms.webapp.service.impl;
 
 import com.openclassrooms.webapp.dto.FireDTO;
 import com.openclassrooms.webapp.dto.PersonInfoDTO;
@@ -8,6 +8,7 @@ import com.openclassrooms.webapp.model.Person;
 import com.openclassrooms.webapp.repository.FirestationRepository;
 import com.openclassrooms.webapp.repository.MedicalRecordRepository;
 import com.openclassrooms.webapp.repository.PersonRepository;
+import com.openclassrooms.webapp.service.interfaces.FireService;
 import com.openclassrooms.webapp.utils.DateUtils;
 import org.springframework.stereotype.Service;
 
@@ -18,33 +19,42 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-public class FireService {
+public class FireServiceImpl implements FireService {
 
     private final FirestationRepository firestationRepository;
     private final PersonRepository personRepository;
     private final MedicalRecordRepository medicalRecordRepository;
 
-    public FireService(FirestationRepository firestationRepository,
-                       PersonRepository personRepository,
-                       MedicalRecordRepository medicalRecordRepository) {
+    public FireServiceImpl(FirestationRepository firestationRepository,
+                           PersonRepository personRepository,
+                           MedicalRecordRepository medicalRecordRepository) {
         this.firestationRepository = firestationRepository;
         this.personRepository = personRepository;
         this.medicalRecordRepository = medicalRecordRepository;
     }
 
+    @Override
     public FireDTO getResidentsAndStation(String address) throws IOException {
         List<Person> persons = personRepository.findAll();
         List<MedicalRecord> medicalRecords = medicalRecordRepository.findAll();
         List<Firestation> firestations = firestationRepository.findAll();
 
-        // Chercher la station qui dessert cette adresse
+        boolean addressExistsInPersons = persons.stream()
+                .anyMatch(p -> p.getAddress().equalsIgnoreCase(address));
+
+        boolean addressExistsInStations = firestations.stream()
+                .anyMatch(f -> f.getAddress().equalsIgnoreCase(address));
+
+        if (!addressExistsInPersons && !addressExistsInStations) {
+            return null;
+        }
+
         Optional<Firestation> stationOpt = firestations.stream()
                 .filter(f -> f.getAddress().equalsIgnoreCase(address))
                 .findFirst();
 
-        Integer stationNumber = stationOpt.map(Firestation::getStation).orElse(null); // on accepte null
+        Integer stationNumber = stationOpt.map(Firestation::getStation).orElse(null);
 
-        // Filtrer les personnes à cette adresse
         List<PersonInfoDTO> residents = persons.stream()
                 .filter(p -> p.getAddress().equalsIgnoreCase(address))
                 .map(p -> {
@@ -70,6 +80,8 @@ public class FireService {
 
         return new FireDTO(residents, stationNumber);
     }
+
+
 
 
 

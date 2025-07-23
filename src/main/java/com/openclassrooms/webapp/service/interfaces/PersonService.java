@@ -1,9 +1,7 @@
-package com.openclassrooms.webapp.service;
+package com.openclassrooms.webapp.service.interfaces;
 
 import com.openclassrooms.webapp.dto.PersonInfoByLastNameDTO;
 import com.openclassrooms.webapp.model.Person;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.io.IOException;
 import java.util.List;

@@ -1,9 +1,8 @@
-package com.openclassrooms.webapp.service;
+package com.openclassrooms.webapp.service.interfaces;
 
 import com.openclassrooms.webapp.model.MedicalRecord;
 
 import java.io.IOException;
-import java.util.List;
 
 public interface MedicalRecordService {
     MedicalRecord createMedicalRecord(MedicalRecord medicalRecord) throws IOException;
