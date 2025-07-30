@@ -11,7 +11,6 @@ public class Person {
     private String email;
 
     public Person(){
-
     }
 
     public Person(String firstName,String lastName, String phone, String zip, String city, String address, String email) {
@@ -22,7 +21,6 @@ public class Person {
         this.city = city;
         this.address = address;
         this.email = email;
-
     }
 
     public String getFirstName() {

@@ -7,11 +7,9 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.util.List;
 
-
 @Service
 public class MedicalRecordServiceImpl implements MedicalRecordService {
     private final MedicalRecordRepository medicalRecordRepository;
-
 
     public MedicalRecordServiceImpl(MedicalRecordRepository medicalRecordRepository) {
         this.medicalRecordRepository = medicalRecordRepository;
@@ -46,7 +44,6 @@ public class MedicalRecordServiceImpl implements MedicalRecordService {
         return null;
     }
 
-
     @Override
     public boolean deleteMedicalRecord(String firstName, String lastName) throws IOException {
         List<MedicalRecord> records = medicalRecordRepository.findAll();
@@ -61,10 +58,6 @@ public class MedicalRecordServiceImpl implements MedicalRecordService {
         if (removed) {
             medicalRecordRepository.saveAll(records);
         }
-
         return removed;
     }
-
-
-
 }

@@ -4,7 +4,7 @@ import java.util.List;
 
 public class ChildrenAtAddressDTO {
     private List<ChildAlert> children;
-    private List<PersonDTO> householdMembers; // ou crée un DTO allégé si tu veux
+    private List<PersonDTO> householdMembers;
 
     public ChildrenAtAddressDTO(List<ChildAlert> children, List<PersonDTO> householdMembers) {
         this.children = children;

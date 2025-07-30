@@ -67,22 +67,9 @@ public class PersonController {
         }
     }
 
-    @GetMapping
-    public ResponseEntity<?> getPersonInfo(@RequestParam String lastName) {
-        logger.debug("Requête reçue pour la récupération d'une personne avec son nom.");
-        try {
-            List<PersonInfoByLastNameDTO> result = personService.getPersonInfoByLastName(lastName);
-            if (result.isEmpty()) {
-                logger.error("Personne non trouvée pour la récupération.");
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Aucune personne trouvée.");
-            }
-            logger.info("Personne récupérée avec succès.");
-            return ResponseEntity.ok(result);
-        } catch (Exception e) {
-            logger.error("Erreur serveur pendant la récupération d'une personne.");
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erreur serveur");
-        }
-    }
+
+
+
 
 
 

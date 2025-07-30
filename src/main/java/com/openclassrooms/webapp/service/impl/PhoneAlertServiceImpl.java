@@ -30,12 +30,11 @@ public class PhoneAlertServiceImpl implements PhoneAlertService {
         List<String> addressesCovered = firestations.stream()
                 .filter(fs -> fs.getStation() == stationNumber)
                 .map(Firestation::getAddress)
-                .collect(Collectors.toList());
+                .toList();
 
         if (addressesCovered.isEmpty()) {
             return Collections.emptyList();
         }
-
 
         List<Person> persons = personRepository.findAll();
 
@@ -44,7 +43,6 @@ public class PhoneAlertServiceImpl implements PhoneAlertService {
                 .map(Person::getPhone)
                 .distinct()
                 .collect(Collectors.toList());
-
         return phoneNumbers;
     }
 

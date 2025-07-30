@@ -16,7 +16,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class ChildAlertServiceImpl implements ChildAlertService {
@@ -39,7 +38,7 @@ public class ChildAlertServiceImpl implements ChildAlertService {
 
         List<Person> residents = persons.stream()
                 .filter(p -> p.getAddress() != null && p.getAddress().equalsIgnoreCase(address))
-                .collect(Collectors.toList());
+                .toList();
 
         List<ChildAlert> children = new ArrayList<>();
         List<PersonDTO> others = new ArrayList<>();
@@ -57,8 +56,6 @@ public class ChildAlertServiceImpl implements ChildAlertService {
                 children.add(new ChildAlert(resident.getFirstName(), resident.getLastName(), age));
             } else if (age > 18) {
                 others.add(new PersonDTO(resident.getFirstName(), resident.getLastName()));
-            } else {
-
             }
         }
 

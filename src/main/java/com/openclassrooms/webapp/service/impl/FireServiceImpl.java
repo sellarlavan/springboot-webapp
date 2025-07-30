@@ -80,9 +80,4 @@ public class FireServiceImpl implements FireService {
 
         return new FireDTO(residents, stationNumber);
     }
-
-
-
-
-
 }

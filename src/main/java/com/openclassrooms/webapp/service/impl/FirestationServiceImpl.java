@@ -16,7 +16,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.stream.Collectors;
+
 
 @Service
 public class FirestationServiceImpl implements FirestationService {
@@ -57,8 +57,6 @@ public class FirestationServiceImpl implements FirestationService {
         throw new NoSuchElementException("Adresse inexistante.");
     }
 
-
-
     @Override
     public boolean deleteByAddress(String address) throws IOException {
         List<Firestation> firestations = firestationRepository.findAll();
@@ -85,7 +83,7 @@ public class FirestationServiceImpl implements FirestationService {
         List<String> addresses = firestations.stream()
                 .filter(f -> f.getStation() == stationNumber)
                 .map(Firestation::getAddress)
-                .collect(Collectors.toList());
+                .toList();
 
         if (addresses.isEmpty()) {
             return null;
@@ -126,15 +124,6 @@ public class FirestationServiceImpl implements FirestationService {
                 ));
             }
         }
-
         return new FirestationCoverage(coveredPersons, adultCount, childCount);
     }
-
-
-
-
-
-
-
-
 }

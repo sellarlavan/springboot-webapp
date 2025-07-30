@@ -3,7 +3,6 @@ package com.openclassrooms.webapp.service.impl;
 import com.openclassrooms.webapp.dto.PersonInfoByLastNameDTO;
 import com.openclassrooms.webapp.model.MedicalRecord;
 import com.openclassrooms.webapp.model.Person;
-
 import com.openclassrooms.webapp.repository.MedicalRecordRepository;
 import com.openclassrooms.webapp.repository.PersonRepository;
 import com.openclassrooms.webapp.service.interfaces.PersonService;
@@ -88,7 +87,6 @@ public class PersonServiceImpl implements PersonService {
                 ));
             }
         }
-
         return result;
     }
 }

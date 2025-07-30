@@ -40,9 +40,7 @@ public class FirestationController {
         logger.debug("Requête reçue pour la mise à jour d'une caserne.");
         try {
             Firestation updated = firestationService.updateFirestation(updatedFirestation);
-            if (updated == null) {
-                return ResponseEntity.notFound().build();
-            }
+
             logger.info("Mise à jour de la caserne avec succès.");
             return ResponseEntity.ok(updated);
         }
@@ -83,7 +81,6 @@ public class FirestationController {
             return ResponseEntity.notFound().build();
         }
     }
-
 
     @GetMapping
     public ResponseEntity<FirestationCoverage> getPersonsByStation(@RequestParam int stationNumber) {

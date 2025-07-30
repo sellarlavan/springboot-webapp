@@ -71,8 +71,6 @@ public class FloodServiceImpl implements FloodService {
 
             households.put(address, residentsAtAddress);
         }
-
         return new FloodStationDTO(households);
     }
-
 }
