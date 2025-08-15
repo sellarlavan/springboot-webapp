@@ -2,7 +2,6 @@ package com.openclassrooms.webapp.service.interfaces;
 
 import com.openclassrooms.webapp.dto.FirestationCoverage;
 import com.openclassrooms.webapp.model.Firestation;
-
 import java.io.IOException;
 
 public interface FirestationService {

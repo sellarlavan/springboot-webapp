@@ -2,7 +2,6 @@ package com.openclassrooms.webapp.service.interfaces;
 
 import com.openclassrooms.webapp.dto.PersonInfoByLastNameDTO;
 import com.openclassrooms.webapp.model.Person;
-
 import java.io.IOException;
 import java.util.List;
 

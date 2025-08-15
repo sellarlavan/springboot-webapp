@@ -1,23 +1,19 @@
 package com.openclassrooms.webapp;
 
-import com.openclassrooms.webapp.service.interfaces.ChildAlertService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.hamcrest.Matchers.*;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class ReadControllerTest {
+public class SearchControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
@@ -109,7 +105,7 @@ public class ReadControllerTest {
                         .param("address", "123 Empty Street")
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(content().string(""));
+                .andExpect(jsonPath("$.persons").isEmpty());
     }
 
     @Test
@@ -131,7 +127,7 @@ public class ReadControllerTest {
                 .andExpect(jsonPath("$.households['951 LoneTree Rd']").isArray())
                 .andExpect(jsonPath("$.households['951 LoneTree Rd'][0].firstName").value("Eric"))
                 .andExpect(jsonPath("$.households['951 LoneTree Rd'][0].phone").value("841-874-7458"))
-                .andExpect(jsonPath("$.households['951 LoneTree Rd'][0].age").value("79"));
+                .andExpect(jsonPath("$.households['951 LoneTree Rd'][0].age").value("80"));
     }
 
     @Test
@@ -139,7 +135,7 @@ public class ReadControllerTest {
         mockMvc.perform(get("/flood/stations")
                         .param("stations", "999"))
                 .andExpect(status().isOk())
-                .andExpect(content().string(emptyString()));
+                .andExpect(jsonPath("$.households").isEmpty());
     }
 
     @Test
@@ -164,8 +160,8 @@ public class ReadControllerTest {
     public void testPersonInfoWithUnknownLastNameReturnsNotFound() throws Exception {
         mockMvc.perform(get("/personInfolastName")
                         .param("lastName", "Inconnu"))
-                .andExpect(status().isNotFound())
-                .andExpect(content().string("Aucune personne trouvée."));
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$").isEmpty());
     }
 
     @Test

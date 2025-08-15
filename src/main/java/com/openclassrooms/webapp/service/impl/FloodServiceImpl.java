@@ -11,7 +11,6 @@ import com.openclassrooms.webapp.repository.PersonRepository;
 import com.openclassrooms.webapp.service.interfaces.FloodService;
 import com.openclassrooms.webapp.utils.DateUtils;
 import org.springframework.stereotype.Service;
-
 import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;

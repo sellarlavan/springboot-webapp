@@ -7,7 +7,6 @@ import com.openclassrooms.webapp.service.interfaces.CommunityService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
-
 import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
@@ -37,6 +36,4 @@ public class CommunityServiceImpl implements CommunityService {
 
         return new CommunityEmailDTO(emails);
     }
-
-
 }

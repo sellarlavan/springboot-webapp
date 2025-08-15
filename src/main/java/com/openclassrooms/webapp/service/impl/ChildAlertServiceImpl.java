@@ -10,9 +10,7 @@ import com.openclassrooms.webapp.repository.PersonRepository;
 import com.openclassrooms.webapp.service.interfaces.ChildAlertService;
 import com.openclassrooms.webapp.utils.DateUtils;
 import org.springframework.stereotype.Service;
-
 import java.io.IOException;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -35,11 +33,9 @@ public class ChildAlertServiceImpl implements ChildAlertService {
 
         List<Person> persons = personRepository.findAll();
         List<MedicalRecord> medicalRecords = medicalRecordRepository.findAll();
-
         List<Person> residents = persons.stream()
                 .filter(p -> p.getAddress() != null && p.getAddress().equalsIgnoreCase(address))
                 .toList();
-
         List<ChildAlert> children = new ArrayList<>();
         List<PersonDTO> others = new ArrayList<>();
 
@@ -61,7 +57,4 @@ public class ChildAlertServiceImpl implements ChildAlertService {
 
         return new ChildrenAtAddressDTO(children, others);
     }
-
-
-
 }

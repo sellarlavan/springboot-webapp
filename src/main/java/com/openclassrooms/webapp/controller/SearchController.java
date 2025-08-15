@@ -9,12 +9,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
 import java.io.IOException;
 import java.util.List;
 
 @RestController
-public class ReadController {
+public class SearchController {
     private final ChildAlertService childAlertService;
     private final PhoneAlertService phoneAlertService;
     private final FireService fireService;
@@ -22,14 +21,14 @@ public class ReadController {
     private final PersonService personService;
     private final CommunityService communityService;
 
-    private static final Logger logger = LogManager.getLogger(ReadController.class);
+    private static final Logger logger = LogManager.getLogger(SearchController.class);
 
-    public ReadController (ChildAlertService childAlertService,
-                           PhoneAlertService phoneAlertService,
-                           FireService fireService,
-                           FloodService floodService,
-                           PersonService personService,
-                           CommunityService communityService){
+    public SearchController(ChildAlertService childAlertService,
+                            PhoneAlertService phoneAlertService,
+                            FireService fireService,
+                            FloodService floodService,
+                            PersonService personService,
+                            CommunityService communityService){
         this.childAlertService = childAlertService;
         this.phoneAlertService = phoneAlertService;
         this.fireService = fireService;
@@ -39,7 +38,7 @@ public class ReadController {
     }
 
     @GetMapping("/childAlert")
-    public ResponseEntity<?> getChildrenAtAddress(@RequestParam String address) {
+    public ResponseEntity<ChildrenAtAddressDTO> getChildrenAtAddress(@RequestParam String address) {
         logger.debug("Requête reçue pour récupérer les enfants à l'adresse.");
         try {
             ChildrenAtAddressDTO result = childAlertService.getChildrenAtAddress(address);
@@ -73,7 +72,7 @@ public class ReadController {
     }
 
     @GetMapping("/fire")
-    public ResponseEntity<?> getFireInfo(@RequestParam String address) {
+    public ResponseEntity<FireDTO> getFireInfo(@RequestParam String address) {
         logger.debug("Requête reçue pour les infos incendie à l'adresse.");
 
         try {
@@ -82,11 +81,6 @@ public class ReadController {
             if (result == null) {
                 logger.error("Adresse inexistante.");
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-            }
-
-            if (result.getPersons().isEmpty()) {
-                logger.info("Adresse connue pour une caserne mais aucun habitant.");
-                return ResponseEntity.ok().build();
             }
 
             logger.info("Résidents trouvés à l'adresse.");
@@ -99,16 +93,11 @@ public class ReadController {
     }
 
     @GetMapping("/flood/stations")
-    public ResponseEntity<?> getFloodStations(@RequestParam List<Integer> stations) {
+    public ResponseEntity<FloodStationDTO> getFloodStations(@RequestParam List<Integer> stations) {
         logger.debug("Requête reçue pour les foyers couverts par les stations.");
 
         try {
             FloodStationDTO result = floodService.getHouseholdsByStations(stations);
-
-            if (result.getHouseholds().isEmpty()) {
-                logger.error("Aucun foyer trouvé pour les stations.");
-                return ResponseEntity.ok().build();
-            }
 
             logger.info("Foyers trouvés pour les stations.");
             return ResponseEntity.ok(result);
@@ -120,24 +109,21 @@ public class ReadController {
     }
 
     @GetMapping("/personInfolastName")
-    public ResponseEntity<?> getPersonInfo(@RequestParam String lastName) {
+    public ResponseEntity<List<PersonInfoByLastNameDTO>> getPersonInfo(@RequestParam String lastName) {
         logger.debug("Requête reçue pour la récupération d'une personne avec son nom.");
         try {
             List<PersonInfoByLastNameDTO> result = personService.getPersonInfoByLastName(lastName);
-            if (result.isEmpty()) {
-                logger.error("Personne non trouvée pour la récupération.");
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Aucune personne trouvée.");
-            }
+
             logger.info("Personne récupérée avec succès.");
             return ResponseEntity.ok(result);
         } catch (Exception e) {
             logger.error("Erreur serveur pendant la récupération d'une personne.");
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erreur serveur");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
 
     @GetMapping("/communityEmail")
-    public ResponseEntity<?> getCommunityEmail(@RequestParam String city) {
+    public ResponseEntity<CommunityEmailDTO> getCommunityEmail(@RequestParam String city) {
         logger.debug("Requête reçue pour récupérer les emails de la ville.");
         try {
             CommunityEmailDTO result = communityService.getEmailsByCity(city);

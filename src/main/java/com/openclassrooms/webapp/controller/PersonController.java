@@ -1,14 +1,11 @@
 package com.openclassrooms.webapp.controller;
 
-import com.openclassrooms.webapp.dto.PersonInfoByLastNameDTO;
 import com.openclassrooms.webapp.model.Person;
 import com.openclassrooms.webapp.service.interfaces.PersonService;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.io.IOException;
-import java.util.List;
 import java.util.NoSuchElementException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -36,7 +33,6 @@ public class PersonController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
-
 
     @PutMapping("/{firstName}/{lastName}")
     public ResponseEntity<Person> updatePerson(@PathVariable String firstName, @PathVariable String lastName, @RequestBody Person updatedData) {
@@ -66,11 +62,4 @@ public class PersonController {
             return ResponseEntity.notFound().build();
         }
     }
-
-
-
-
-
-
-
 }

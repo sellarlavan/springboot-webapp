@@ -6,7 +6,6 @@ import com.openclassrooms.webapp.repository.FirestationRepository;
 import com.openclassrooms.webapp.repository.PersonRepository;
 import com.openclassrooms.webapp.service.interfaces.PhoneAlertService;
 import org.springframework.stereotype.Service;
-
 import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
