@@ -23,7 +23,7 @@ public class PersonController {
 
     @PostMapping
     public ResponseEntity<Person> createPerson(@RequestBody Person person) {
-        logger.debug("Requête reçue pour la création d'une personne.");
+        logger.info("Requête reçue pour la création d'une personne.");
         try {
             Person createdPerson = personService.createPerson(person);
             logger.info("Création d'une personne avec succès.");
@@ -36,7 +36,7 @@ public class PersonController {
 
     @PutMapping("/{firstName}/{lastName}")
     public ResponseEntity<Person> updatePerson(@PathVariable String firstName, @PathVariable String lastName, @RequestBody Person updatedData) {
-        logger.debug("Requête reçue pour la mise à jour d'une personne.");
+        logger.info("Requête reçue pour la mise à jour d'une personne.");
         try {
             Person updated = personService.updatePerson(firstName, lastName, updatedData);
             logger.info("Mise à jour de la personne avec succès.");
@@ -52,7 +52,7 @@ public class PersonController {
 
     @DeleteMapping("/{firstName}/{lastName}")
     public ResponseEntity<Void> deletePerson(@PathVariable String firstName, @PathVariable String lastName) throws IOException {
-        logger.debug("Requête reçu pour la suppression d'une personne.");
+        logger.info("Requête reçu pour la suppression d'une personne.");
         boolean deleted = personService.deletePerson(firstName, lastName);
         if (deleted) {
             logger.info("Personne supprimée avec succès.");

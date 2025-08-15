@@ -39,7 +39,7 @@ public class SearchController {
 
     @GetMapping("/childAlert")
     public ResponseEntity<ChildrenAtAddressDTO> getChildrenAtAddress(@RequestParam String address) {
-        logger.debug("Requête reçue pour récupérer les enfants à l'adresse.");
+        logger.info("Requête reçue pour récupérer les enfants à l'adresse.");
         try {
             ChildrenAtAddressDTO result = childAlertService.getChildrenAtAddress(address);
             if (result.getChildren().isEmpty()) {
@@ -56,7 +56,7 @@ public class SearchController {
 
     @GetMapping("/phoneAlert")
     public ResponseEntity<List<String>> getPhoneNumbersByStation(@RequestParam int firestation) {
-        logger.debug("Requête reçue pour récupérer les numéros de téléphone de la station.");
+        logger.info("Requête reçue pour récupérer les numéros de téléphone de la station.");
         try {
             List<String> phoneNumbers = phoneAlertService.getPhoneNumbersByStation(firestation);
             if (phoneNumbers == null || phoneNumbers.isEmpty()) {
@@ -73,7 +73,7 @@ public class SearchController {
 
     @GetMapping("/fire")
     public ResponseEntity<FireDTO> getFireInfo(@RequestParam String address) {
-        logger.debug("Requête reçue pour les infos incendie à l'adresse.");
+        logger.info("Requête reçue pour les infos incendie à l'adresse.");
 
         try {
             FireDTO result = fireService.getResidentsAndStation(address);
@@ -94,7 +94,7 @@ public class SearchController {
 
     @GetMapping("/flood/stations")
     public ResponseEntity<FloodStationDTO> getFloodStations(@RequestParam List<Integer> stations) {
-        logger.debug("Requête reçue pour les foyers couverts par les stations.");
+        logger.info("Requête reçue pour les foyers couverts par les stations.");
 
         try {
             FloodStationDTO result = floodService.getHouseholdsByStations(stations);
@@ -110,7 +110,7 @@ public class SearchController {
 
     @GetMapping("/personInfolastName")
     public ResponseEntity<List<PersonInfoByLastNameDTO>> getPersonInfo(@RequestParam String lastName) {
-        logger.debug("Requête reçue pour la récupération d'une personne avec son nom.");
+        logger.info("Requête reçue pour la récupération d'une personne avec son nom.");
         try {
             List<PersonInfoByLastNameDTO> result = personService.getPersonInfoByLastName(lastName);
 
@@ -124,7 +124,7 @@ public class SearchController {
 
     @GetMapping("/communityEmail")
     public ResponseEntity<CommunityEmailDTO> getCommunityEmail(@RequestParam String city) {
-        logger.debug("Requête reçue pour récupérer les emails de la ville.");
+        logger.info("Requête reçue pour récupérer les emails de la ville.");
         try {
             CommunityEmailDTO result = communityService.getEmailsByCity(city);
             if (result.getEmails().isEmpty()) {

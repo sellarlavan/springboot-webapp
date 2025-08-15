@@ -19,7 +19,6 @@ public class DataRepository {
     }
 
     public DataContainer loadData() throws IOException {
-        System.out.println();
         return objectMapper.readValue(file, DataContainer.class);
     }
 

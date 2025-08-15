@@ -23,7 +23,7 @@ public class FirestationController {
 
     @PostMapping
     public ResponseEntity<Firestation> createFirestation(@RequestBody Firestation firestation) {
-        logger.debug("Requête reçue pour la création d'une caserne.");
+        logger.info("Requête reçue pour la création d'une caserne.");
         try {
             Firestation created = firestationService.createFirestation(firestation);
             logger.info("Création de la caserne avec succès.");
@@ -36,7 +36,7 @@ public class FirestationController {
 
     @PutMapping
     public ResponseEntity<Firestation> updateFirestation(@RequestBody Firestation updatedFirestation) {
-        logger.debug("Requête reçue pour la mise à jour d'une caserne.");
+        logger.info("Requête reçue pour la mise à jour d'une caserne.");
         try {
             Firestation updated = firestationService.updateFirestation(updatedFirestation);
 
@@ -55,7 +55,7 @@ public class FirestationController {
 
     @DeleteMapping
     public ResponseEntity<Void> deleteFirestation(@RequestBody Firestation request) throws IOException {
-        logger.debug("Requête reçue pour la suppression d'une caserne.");
+        logger.info("Requête reçue pour la suppression d'une caserne.");
 
         if ((request.getAddress() == null || request.getAddress().isEmpty()) && request.getStation() == 0) {
             logger.error("Requête invalide ni adresse ni numéro de station fourni.");
@@ -65,10 +65,10 @@ public class FirestationController {
         boolean deleted;
 
         if (request.getAddress() != null && !request.getAddress().isEmpty()) {
-            logger.debug("Suppression d'une caserne par adresse.");
+            logger.info("Suppression d'une caserne par adresse.");
             deleted = firestationService.deleteByAddress(request.getAddress());
         } else {
-            logger.debug("Suppression d'une caserne par numéro de station.");
+            logger.info("Suppression d'une caserne par numéro de station.");
             deleted = firestationService.deleteByStationNumber(request.getStation());
         }
 
@@ -83,7 +83,7 @@ public class FirestationController {
 
     @GetMapping
     public ResponseEntity<FirestationCoverage> getPersonsByStation(@RequestParam int stationNumber) {
-        logger.debug("Requête reçue pour la récupération des personnes couvertes par la caserne.");
+        logger.info("Requête reçue pour la récupération des personnes couvertes par la caserne.");
 
         try {
             FirestationCoverage response = firestationService.getPersonsCoveredByStation(stationNumber);

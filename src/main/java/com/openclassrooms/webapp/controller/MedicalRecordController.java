@@ -21,7 +21,7 @@ public class MedicalRecordController {
 
     @PostMapping
     public ResponseEntity<MedicalRecord> createMedicalRecord(@RequestBody MedicalRecord medicalRecord) {
-        logger.debug("Requête reçue pour la création d'un dossier médical.");
+        logger.info("Requête reçue pour la création d'un dossier médical.");
         try {
             MedicalRecord created = medicalRecordService.createMedicalRecord(medicalRecord);
             logger.info("Dossier médical crée avec succès.");
@@ -38,7 +38,7 @@ public class MedicalRecordController {
             @PathVariable String lastName,
             @RequestBody MedicalRecord updatedRecord) {
 
-        logger.debug("Requête reçue pour la mise à jour du dossier médical.");
+        logger.info("Requête reçue pour la mise à jour du dossier médical.");
 
         try {
             MedicalRecord updated = medicalRecordService.updateMedicalRecord(firstName, lastName, updatedRecord);
@@ -62,7 +62,7 @@ public class MedicalRecordController {
             @PathVariable String firstName,
             @PathVariable String lastName) {
 
-        logger.debug("Requête reçue pour la suppression du dossier médical.");
+        logger.info("Requête reçue pour la suppression du dossier médical.");
 
         try {
             boolean deleted = medicalRecordService.deleteMedicalRecord(firstName, lastName);
